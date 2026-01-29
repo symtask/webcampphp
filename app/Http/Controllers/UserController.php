@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRegisterPost; // ★Step2で作ったバリデーション
-use App\Models\User; // ★ユーザーモデル
-use Illuminate\Support\Facades\Hash; // ★ハッシュ化に必要 [cite: 16]
+use App\Http\Requests\UserRegisterPost;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -18,21 +18,19 @@ class UserController extends Controller
     // 実際にDBに登録する
     public function register(UserRegisterPost $request)
     {
-        // 1. バリデーション済みのデータを受け取る [cite: 12]
+        //バリデーション済みのデータを受け取る
         $datum = $request->validated();
 
-        // 2. パスワードをハッシュ化（暗号化）して書き換える [cite: 13, 14, 15]
+        //パスワードをハッシュ化
         $datum['password'] = Hash::make($datum['password']);
 
-        // 3. データベース(usersテーブル)に登録する
-        // createメソッドを使うには、Userモデル側でfillableの設定が必要だが、
-        // LaravelのデフォルトUserモデルは設定済みなのでそのまま使える
+        // datebase usertable に登録する
         User::create($datum);
 
-        // 4. 「登録しました」メッセージを一時保存する [cite: 27, 423]
+        //メッセージを一時保存する
         $request->session()->flash('front.user_register_success', true);
 
-        // 5. トップページ（ログイン画面）へリダイレクト 
+        //トップページへリダイレクト 
         return redirect('/');
     }
 }

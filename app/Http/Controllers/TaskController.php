@@ -23,7 +23,7 @@ class TaskController extends Controller
     {
 
         // 1Page辺りの表示アイテム数を設定
-        $per_page = 5;
+        $per_page = 3;
 
         // 一覧の取得
         $list = $this->getListBuilder()
@@ -66,7 +66,6 @@ class TaskController extends Controller
         try {
             $r = TaskModel::create($datum);
         } catch (\Throwable $e) {
-            // XXX 本当はログに書く等の処理をする。今回は一端「出力する」だけ
             echo  $e->getMessage();
             exit;
         }

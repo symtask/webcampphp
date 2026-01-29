@@ -69,7 +69,9 @@
 {{-- {{ $list->links() }} --}}
 
 
-現在 {{ $list->currentPage() }} <br>
+現在 {{ $list->currentPage() }} ページ目<br>
+        {{-- {{ $list->links() }} --}}
+
 
 @if ($list->onFirstPage() === false)
 <a href="/task/list">最初のページ</a>
